@@ -1,7 +1,6 @@
 const inputButton = document.getElementById("input-btn")
 const inputEl = document.getElementById("input-el")
-// let myLeads = new Array()
-let myLeads = ["abc", "adasdsaf", "asgfdgs"]
+let myLeads = new Array()
 
 inputButton.addEventListener("click", function(){
     myLeads.push(inputEl.value)
@@ -17,9 +16,14 @@ const ulEl = document.getElementById("ul-el")
 function renderLeads(){
     let listItems = new String()
 
-    // creating list with input domains
+    // creating list with input links to websites
     for(let i in myLeads){
-        listItems += "<li>" + myLeads[i] + "</li>"
+
+        listItems +=    `<li>
+                            <a targer="_blank" href="${myLeads[i]}"> 
+                                ${myLeads[i]} 
+                            </a>
+                        </li>`
     }
     ulEl.innerHTML = listItems
 }
