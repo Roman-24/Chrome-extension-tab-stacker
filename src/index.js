@@ -1,14 +1,26 @@
 const inputButton = document.getElementById("input-btn")
-
+const inputEl = document.getElementById("input-el")
 // let myLeads = new Array()
 let myLeads = ["abc", "adasdsaf", "asgfdgs"]
-const inputEl = document.getElementById("input-el")
 
 inputButton.addEventListener("click", function(){
     myLeads.push(inputEl.value)
-    console.log(myLeads)
+
+    // Clear out the input field
+    inputEl.value = ""
+
+    renderLeads()
 })
 
-for(let i in myLeads){
-    console.log(myLeads[i])
+const ulEl = document.getElementById("ul-el")
+
+function renderLeads(){
+    let listItems = new String()
+
+    // creating list with input domains
+    for(let i in myLeads){
+        listItems += "<li>" + myLeads[i] + "</li>"
+    }
+    ulEl.innerHTML = listItems
 }
+
