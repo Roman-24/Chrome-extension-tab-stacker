@@ -23,11 +23,15 @@ input {
 button {
     padding: 10px 20px;
     margin-top: 10px;
-    background: var(--back-round-color);
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--back-round-color);
     font-weight: bold;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--back-round-color);
     border-radius: 5px;
+}
+
+#delete-btn {
+    background: white;
 }
 
 
