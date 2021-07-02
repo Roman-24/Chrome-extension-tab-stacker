@@ -3,10 +3,13 @@ const inputEl = document.getElementById("input-el")
 let myLeads = new Array()
 
 inputButton.addEventListener("click", function(){
-    myLeads.push(inputEl.value)
 
+    myLeads.push(inputEl.value)
     // Clear out the input field
     inputEl.value = ""
+
+    // save the myLeads array to localStorage
+    localStorage.setItem("myLeads", JSON.stringify(myLeads))
 
     renderLeads()
 })
@@ -27,4 +30,6 @@ function renderLeads(){
     }
     ulEl.innerHTML = listItems
 }
+
+localStorage.setItem("myLeads", "")
 
