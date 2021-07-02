@@ -3,8 +3,10 @@ const inputEl = document.getElementById("input-el")
 let myLeads = new Array()
 const ulEl = document.getElementById("ul-el")
 
+let deleteButton = document.getElementById("delete-btn")
+
 // Get the loeads from the localStorage
-let leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage
     renderLeads()
@@ -36,3 +38,9 @@ function renderLeads() {
     }
     ulEl.innerHTML = listItems
 }
+
+deleteButton.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = new Array()
+    renderLeads()
+})
