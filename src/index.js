@@ -5,6 +5,7 @@ let myLeads = new Array()
 // Get the loeads from the localStorage
 let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 if (leadsFromLocalStorage != null) {
+    myLeads = leadsFromLocalStorage
     renderLeads()
 }
 
