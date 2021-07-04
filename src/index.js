@@ -1,15 +1,15 @@
 const inputButton = document.getElementById("input-btn")
 const inputEl = document.getElementById("input-el")
-let myLeads = new Array()
+let myLeads = []
 const ulEl = document.getElementById("ul-el")
-
+const binTabButton = document.getElementById("tab-btn") 
 let deleteButton = document.getElementById("delete-btn")
 
 // Get the loeads from the localStorage
 const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage
-    renderLeads()
+    render(myLeads)
 }
 
 inputButton.addEventListener("click", function () {
@@ -21,10 +21,28 @@ inputButton.addEventListener("click", function () {
     // save the myLeads array to localStorage
     localStorage.setItem("myLeads", JSON.stringify(myLeads))
 
-    renderLeads()
+    render(myLeads)
 })
 
-function renderLeads() {
+deleteButton.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    render(myLeads)
+})
+
+// bin active tab to myLeads
+binTabButton.addEventListener("click", function(){
+
+                // specification of which tab
+        browser.tabs.query({actine: true, currentWindow: true}, function(tabs){
+        console.log("brave:" + tabs)
+        myLeads.push(tabs[0])
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        render(myLeads)
+    })
+})
+
+function render(leads) {
     let listItems = new String()
 
     // creating list with input links to websites
@@ -38,9 +56,3 @@ function renderLeads() {
     }
     ulEl.innerHTML = listItems
 }
-
-deleteButton.addEventListener("dblclick", function() {
-    localStorage.clear()
-    myLeads = new Array()
-    renderLeads()
-})
