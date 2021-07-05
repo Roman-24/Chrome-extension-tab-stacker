@@ -1,16 +1,18 @@
 const inputButton = document.getElementById("input-btn")
 const inputEl = document.getElementById("input-el")
-let myLeads = []
 const ulEl = document.getElementById("ul-el")
-const binTabButton = document.getElementById("tab-btn") 
-let deleteButton = document.getElementById("delete-btn")
+const binTabButton = document.getElementById("tab-btn")
+const deleteButton = document.getElementById("delete-btn")
+let myLeads = []
 
 // Get the loeads from the localStorage
-const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage
     render(myLeads)
 }
+
+console.log("xxxxxxxxxxxxxxxxxxxxxxxx")
 
 inputButton.addEventListener("click", function () {
 
@@ -24,26 +26,25 @@ inputButton.addEventListener("click", function () {
     render(myLeads)
 })
 
-deleteButton.addEventListener("dblclick", function() {
+deleteButton.addEventListener("dblclick", function () {
     localStorage.clear()
     myLeads = []
     render(myLeads)
 })
 
 // bin active tab to myLeads
-binTabButton.addEventListener("click", function(){
+binTabButton.addEventListener("click", function () {
 
-                // specification of which tab
-        browser.tabs.query({actine: true, currentWindow: true}, function(tabs){
-        console.log("brave:" + tabs)
-        myLeads.push(tabs[0])
+            // specification of which tab
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        myLeads.push(tabs[0].url)
         localStorage.setItem("myLeads", JSON.stringify(myLeads))
         render(myLeads)
     })
 })
 
 function render(leads) {
-    let listItems = new String()
+    let listItems = ""
 
     // creating list with input links to websites
     for (let i in myLeads) {
