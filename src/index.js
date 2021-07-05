@@ -40,7 +40,7 @@ deleteButton.addEventListener("dblclick", function () {
 // bin active tab to myLeads
 binTabButton.addEventListener("click", function () {
 
-    // specification of which tab
+            // specification of which tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         myLeads.push(tabs[0])
         localStorage.setItem("myLeads", JSON.stringify(myLeads))
