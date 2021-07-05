@@ -14,7 +14,14 @@ if (leadsFromLocalStorage) {
 
 inputButton.addEventListener("click", function () {
 
-    myLeads.push(inputEl.value)
+    var newTab = chrome.tabs.create({
+        url: inputEl.value
+    });
+
+    newTab.title = inputEl.value
+
+    myLeads.push(newTab)
+
     // Clear out the input field
     inputEl.value = ""
 
@@ -33,7 +40,7 @@ deleteButton.addEventListener("dblclick", function () {
 // bin active tab to myLeads
 binTabButton.addEventListener("click", function () {
 
-            // specification of which tab
+    // specification of which tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         myLeads.push(tabs[0])
         localStorage.setItem("myLeads", JSON.stringify(myLeads))
