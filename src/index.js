@@ -12,8 +12,6 @@ if (leadsFromLocalStorage) {
     render(myLeads)
 }
 
-console.log("xxxxxxxxxxxxxxxxxxxxxxxx")
-
 inputButton.addEventListener("click", function () {
 
     myLeads.push(inputEl.value)
@@ -37,7 +35,7 @@ binTabButton.addEventListener("click", function () {
 
             // specification of which tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        myLeads.push(tabs[0].url)
+        myLeads.push(tabs[0])
         localStorage.setItem("myLeads", JSON.stringify(myLeads))
         render(myLeads)
     })
@@ -47,11 +45,11 @@ function render(leads) {
     let listItems = ""
 
     // creating list with input links to websites
-    for (let i in myLeads) {
+    for (let i in leads) {
 
         listItems += `<li>
-                            <a targer="_blank" href="${myLeads[i]}"> 
-                                ${myLeads[i]} 
+                            <a href="${leads[i].url}" target="_blank"> 
+                                ${leads[i].title}
                             </a>
                         </li>`
     }
