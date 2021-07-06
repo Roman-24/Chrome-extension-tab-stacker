@@ -5,6 +5,9 @@ const binTabButton = document.getElementById("tab-btn")
 const deleteButton = document.getElementById("delete-btn")
 let myLeads = []
 
+const regex = new RegExp('^(http|https)://')
+const regex2 = new RegExp('^(www.)')
+
 // Get the loeads from the localStorage
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 if (leadsFromLocalStorage) {
@@ -14,13 +17,12 @@ if (leadsFromLocalStorage) {
 
 inputButton.addEventListener("click", function () {
 
-    var newTab = chrome.tabs.create({
-        url: inputEl.value
-    });
+    let myInput = inputEl.value
+    if (myInput.search(regex) == -1){
+        myInput = "https://" + myInput
+    }
 
-    newTab.title = inputEl.value
-
-    myLeads.push(newTab)
+    myLeads.push(myInput)
 
     // Clear out the input field
     inputEl.value = ""
@@ -42,7 +44,7 @@ binTabButton.addEventListener("click", function () {
 
             // specification of which tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        myLeads.push(tabs[0])
+        myLeads.push(tabs[0].url)
         localStorage.setItem("myLeads", JSON.stringify(myLeads))
         render(myLeads)
     })
@@ -54,9 +56,12 @@ function render(leads) {
     // creating list with input links to websites
     for (let i in leads) {
 
+        let myUrl = leads[i].replace(regex, "")
+        myUrl = myUrl.replace(regex2, "")
+
         listItems += `<li>
-                            <a href="${leads[i].url}" target="_blank"> 
-                                ${leads[i].title}
+                            <a href="${leads[i]}" target="_blank"> 
+                                ${myUrl}
                             </a>
                         </li>`
     }
